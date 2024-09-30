@@ -1,45 +1,51 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
-
-    <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            @if (Laravel\Fortify\Features::canUpdateProfileInformation())
-                @livewire('profile.update-profile-information-form')
-
-                <x-section-border />
-            @endif
-
-            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.update-password-form')
-                </div>
-
-                <x-section-border />
-            @endif
-
-            @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.two-factor-authentication-form')
-                </div>
-
-                <x-section-border />
-            @endif
-
-            <div class="mt-10 sm:mt-0">
-                @livewire('profile.logout-other-browser-sessions-form')
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        @if (Laravel\Fortify\Features::canUpdateProfileInformation())
+        <flux:card class="space-y-6">
+            <div>
+                <flux:heading size="lg">{{ __('Profile information') }}</flux:heading>
+                <flux:subheading>{{ __('Update your account\'s profile information and email address.') }}</flux:subheading>
             </div>
+            @livewire('profile.update-profile-information-form')
+        </flux:card>
+        @endif
 
-            @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
-                <x-section-border />
+        @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
+        <flux:card class="space-y-6">
+            <div>
+                <flux:heading size="lg">{{ __('Update password') }}</flux:heading>
+                <flux:subheading>{{ __('Ensure your account is using a long, random password to stay secure.') }}</flux:subheading>
+            </div>
+            @livewire('profile.update-password-form')
+        </flux:card>
+        @endif
 
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.delete-user-form')
+        @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
+            <flux:card class="space-y-6">
+                <div>
+                    <flux:heading size="lg">{{ __('Two factor authentication') }}</flux:heading>
+                    <flux:subheading>{{ __('Add additional security to your account using two factor authentication.') }}</flux:subheading>
                 </div>
-            @endif
-        </div>
+                @livewire('profile.two-factor-authentication-form')
+            </flux:card>
+        @endif
+
+        <flux:card class="space-y-6">
+            <div>
+                <flux:heading size="lg">{{ __('Browser sessions') }}</flux:heading>
+                <flux:subheading>{{ __('Manage and logout your active sessions on other browsers and devices.') }}</flux:subheading>
+            </div>
+            @livewire('profile.logout-other-browser-sessions-form')
+        </flux:card>
+
+        @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
+            <flux:card class="space-y-6">
+                <div>
+                    <flux:heading size="lg">{{ __('Delete account') }}</flux:heading>
+                    <flux:subheading>{{ __('Permanently delete your account.') }}</flux:subheading>
+                </div>
+                @livewire('profile.delete-user-form')
+            </flux:card>
+        @endif
     </div>
 </x-app-layout>

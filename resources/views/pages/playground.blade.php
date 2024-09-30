@@ -1,4 +1,5 @@
 <?php
+
 use function Laravel\Folio\{middleware, name};
 use Livewire\Volt\Component;
 
@@ -18,11 +19,13 @@ new class extends Component {
 
 <x-layouts.app>
     @volt('pages.playground')
-        <div>
-            <form wire:submit='sayHi'>
-                <flux:button type="submit" loading="sayHi">Hi there</flux:button>
-            </form>
-            {{ $message }}
-        </div>
+    <div>
+        <form wire:submit='sayHi'>
+            <flux:button type="submit" loading="sayHi">
+                Hi there
+            </flux:button>
+        </form>
+        {{ $message }}
+    </div>
     @endvolt
 </x-layouts.app>

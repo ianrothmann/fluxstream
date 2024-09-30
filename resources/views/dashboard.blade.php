@@ -1,15 +1,10 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-welcome />
-            </div>
-        </div>
-    </div>
+    <flux:card>
+        <flux:heading size="lg">
+            {{ __('Welcome to the Dashboard!') }}
+        </flux:heading>
+        <flux:subheading>
+            {{ __('This is the default dashboard page for your new Fluent application. Only logged-in users can see it. You can change it to anything you like.') }}
+        </flux:subheading>
+    </flux:card>
 </x-app-layout>
