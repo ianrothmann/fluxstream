@@ -104,7 +104,6 @@ new class extends Component {
     <flux:dropdown position="bottom" align="end">
         <flux:button icon-trailing="chevron-down" variant="ghost">{{ auth()->user()->name }}</flux:button>
 
-
         <flux:navmenu>
             <flux:navmenu.item href="{{ route('profile.update') }}" wire:navigate icon="building-storefront">Profile
             </flux:navmenu.item>
@@ -140,7 +139,7 @@ new class extends Component {
     <div class="flex-1 self-stretch max-md:pt-6">
         {{ $slot }}
     </div>
-    
+
 </flux:main>
 @persist('toast')
 <flux:toast/>
