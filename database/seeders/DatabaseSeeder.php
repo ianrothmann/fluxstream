@@ -13,7 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        // User::factory(10)->withPersonalTeam()->create();
+
+        User::factory()->withPersonalTeam()->create([
             'name' => 'Paul Ackerman',
             'email' => 'paul@xtrapolate.io',
         ]);

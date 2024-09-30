@@ -18,7 +18,7 @@
     @fluxStyles
 </head>
 
-<body class="flex justify-center items-center m-auto max-w-md min-h-screen bg-white dark:bg-zinc-800">
+<body class="flex justify-center items-center m-auto max-w-md min-h-screen bg-white">
     <div class="w-full">
         {{ $slot }}
     </div>
