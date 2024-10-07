@@ -1,169 +1,207 @@
 <div>
+
     <!-- Generate API Token -->
-    <x-form-section submit="createApiToken">
-        <x-slot name="title">
-            {{ __('Create API Token') }}
-        </x-slot>
+    <div class="flex flex-row">
+        <div class="basis-4/12">
+            <h3 class="text-lg font-medium text-gray-900">
+                {{ __('Create API Token') }}
+            </h3>
 
-        <x-slot name="description">
-            {{ __('API tokens allow third-party services to authenticate with our application on your behalf.') }}
-        </x-slot>
+            <h2 class="mt-1 text-sm text-gray-600">
+                {{ __('API tokens allow third-party services to authenticate with our application on your behalf.') }}
+            </h2>
+        </div>
 
-        <x-slot name="form">
-            <!-- Token Name -->
-            <div class="col-span-6 sm:col-span-4">
-                <x-label for="name" value="{{ __('Token Name') }}" />
-                <x-input id="name" type="text" class="mt-1 block w-full" wire:model="createApiTokenForm.name" autofocus />
-                <x-input-error for="name" class="mt-2" />
-            </div>
+        <div class="basis-8/12">
+            <form>
+                <flux:card>
+                    <flux:fieldset>
+                        {{-- Token Name --}}
+                        <flux:field class="col-span-6 sm:col-span-4">
+                            <flux:label>{{__('Token Name')}}</flux:label>
 
-            <!-- Token Permissions -->
-            @if (Laravel\Jetstream\Jetstream::hasPermissions())
-                <div class="col-span-6">
-                    <x-label for="permissions" value="{{ __('Permissions') }}" />
+                            <flux:input wire:model="createApiTokenForm.name"/>
 
-                    <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        @foreach (Laravel\Jetstream\Jetstream::$permissions as $permission)
-                            <label class="flex items-center">
-                                <x-checkbox wire:model="createApiTokenForm.permissions" :value="$permission"/>
-                                <span class="ms-2 text-sm text-gray-600">{{ $permission }}</span>
-                            </label>
-                        @endforeach
+                            <flux:error name="name"/>
+                        </flux:field>
+
+                        {{-- Permissions --}}
+                        @if (Laravel\Jetstream\Jetstream::hasPermissions())
+                            <div class="col-span-6">
+                                <flux:checkbox.group wire:model="createApiTokenForm.permissions"
+                                                     label="{{ __('Permissions') }}"
+                                >
+                                    <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        @foreach (Laravel\Jetstream\Jetstream::$permissions as $permission)
+                                            <flux:checkbox label="{{$permission}}"
+                                                           value="{{$permission}}"/>
+                                        @endforeach
+                                    </div>
+                                </flux:checkbox.group>
+                            </div>
+                        @endif
+                    </flux:fieldset>
+
+                    {{-- Action--}}
+                    <div class="flex space-x-4 items-center justify-end bg-gray-50 -mx-6 -mb-6 mt-6 p-2"
+                         style="border-bottom-right-radius: inherit; border-bottom-left-radius: inherit"
+                    >
+                        <flux:button variant="primary"
+                                     wire:click.prevent="createApiToken"
+                                     wire:loading.attr="disabled"
+                        >
+                            {{ __('Created') }}
+                        </flux:button>
+
+                        <x-action-message class="me-3" on="saved">
+                            {{ __('Created.') }}
+                        </x-action-message>
                     </div>
-                </div>
-            @endif
-        </x-slot>
+                </flux:card>
+            </form>
+        </div>
+    </div>
 
-        <x-slot name="actions">
-            <x-action-message class="me-3" on="created">
-                {{ __('Created.') }}
-            </x-action-message>
-
-            <x-button>
-                {{ __('Create') }}
-            </x-button>
-        </x-slot>
-    </x-form-section>
 
     @if ($this->user->tokens->isNotEmpty())
-        <x-section-border />
+        <flux:separator class="my-5"/>
 
-        <!-- Manage API Tokens -->
-        <div class="mt-10 sm:mt-0">
-            <x-action-section>
-                <x-slot name="title">
+        <div class="flex flex-row">
+            <div class="basis-4/12">
+                <h3 class="text-lg font-medium text-gray-900">
                     {{ __('Manage API Tokens') }}
-                </x-slot>
+                </h3>
 
-                <x-slot name="description">
+                <h2 class="mt-1 text-sm text-gray-600">
                     {{ __('You may delete any of your existing tokens if they are no longer needed.') }}
-                </x-slot>
+                </h2>
+            </div>
 
-                <!-- API Token List -->
-                <x-slot name="content">
-                    <div class="space-y-6">
-                        @foreach ($this->user->tokens->sortBy('name') as $token)
-                            <div class="flex items-center justify-between">
-                                <div class="break-all">
-                                    {{ $token->name }}
-                                </div>
-
-                                <div class="flex items-center ms-2">
-                                    @if ($token->last_used_at)
-                                        <div class="text-sm text-gray-400">
-                                            {{ __('Last used') }} {{ $token->last_used_at->diffForHumans() }}
-                                        </div>
-                                    @endif
-
-                                    @if (Laravel\Jetstream\Jetstream::hasPermissions())
-                                        <button class="cursor-pointer ms-6 text-sm text-gray-400 underline" wire:click="manageApiTokenPermissions({{ $token->id }})">
-                                            {{ __('Permissions') }}
-                                        </button>
-                                    @endif
-
-                                    <button class="cursor-pointer ms-6 text-sm text-red-500" wire:click="confirmApiTokenDeletion({{ $token->id }})">
-                                        {{ __('Delete') }}
-                                    </button>
-                                </div>
+            <div class="basis-8/12">
+                <flux:card>
+                    @foreach ($this->user->tokens->sortBy('name') as $index => $token)
+                        <div
+                            class="flex items-center justify-between {{sizeof($this->user->tokens) - 1 <= $index ? '' : 'mb-3'}}"
+                            wire:key="token-{{ $index }}"
+                        >
+                            <div class="break-all">
+                                {{ $token->name }}
                             </div>
-                        @endforeach
-                    </div>
-                </x-slot>
-            </x-action-section>
+
+                            <div class="flex items-center ms-2">
+                                @if ($token->last_used_at)
+                                    <div class="text-sm text-gray-400">
+                                        {{ __('Last used') }} {{ $token->last_used_at->diffForHumans() }}
+                                    </div>
+                                @endif
+
+                                @if (Laravel\Jetstream\Jetstream::hasPermissions())
+                                    <flux:button variant="ghost"
+                                                 wire:click="manageApiTokenPermissions({{ $token->id }})"
+                                    >
+                                        {{ __('Permissions') }}
+                                    </flux:button>
+                                @endif
+                                <flux:button variant="danger"
+                                             wire:click="confirmApiTokenDeletion({{ $token->id }})"
+                                             class="ml-3"
+                                >
+                                    {{ __('Delete') }}
+                                </flux:button>
+                            </div>
+                        </div>
+                    @endforeach
+                </flux:card>
+            </div>
         </div>
     @endif
 
     <!-- Token Value Modal -->
-    <x-dialog-modal wire:model.live="displayingToken">
-        <x-slot name="title">
+    <flux:modal wire:model.self="displayingToken"
+                class="w-[50%] space-y-6"
+    >
+        <flux:heading size="lg">
             {{ __('API Token') }}
-        </x-slot>
+        </flux:heading>
 
-        <x-slot name="content">
-            <div>
-                {{ __('Please copy your new API token. For your security, it won\'t be shown again.') }}
-            </div>
+        <flux:subheading>
+            {{ __('Please copy your new API token. For your security, it won\'t be shown again.') }}
+        </flux:subheading>
 
-            <x-input x-ref="plaintextToken" type="text" readonly :value="$plainTextToken"
-                class="mt-4 bg-gray-100 px-4 py-2 rounded font-mono text-sm text-gray-500 w-full break-all"
-                autofocus autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-                @showing-token-modal.window="setTimeout(() => $refs.plaintextToken.select(), 250)"
-            />
-        </x-slot>
+        <flux:input icon="key"
+                    value="{{$plainTextToken}}"
+                    readonly
+                    copyable
+        />
 
-        <x-slot name="footer">
-            <x-secondary-button wire:click="$set('displayingToken', false)" wire:loading.attr="disabled">
-                {{ __('Close') }}
-            </x-secondary-button>
-        </x-slot>
-    </x-dialog-modal>
+        <flux:button wire:click="$set('displayingToken', false)"
+        >
+            {{ __('Close') }}
+        </flux:button>
+    </flux:modal>
 
-    <!-- API Token Permissions Modal -->
-    <x-dialog-modal wire:model.live="managingApiTokenPermissions">
-        <x-slot name="title">
+    {{--API Token Permissions Modal--}}
+    <flux:modal wire:model.self="managingApiTokenPermissions"
+                class="w-[50%] space-y-6"
+    >
+        <flux:heading size="lg">
             {{ __('API Token Permissions') }}
-        </x-slot>
+        </flux:heading>
 
-        <x-slot name="content">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <flux:checkbox.group wire:model="updateApiTokenForm.permissions"
+                             label="{{ __('Permissions') }}"
+        >
+            <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                 @foreach (Laravel\Jetstream\Jetstream::$permissions as $permission)
-                    <label class="flex items-center">
-                        <x-checkbox wire:model="updateApiTokenForm.permissions" :value="$permission"/>
-                        <span class="ms-2 text-sm text-gray-600">{{ $permission }}</span>
-                    </label>
+                    <flux:checkbox label="{{$permission}}"
+                                   value="{{$permission}}"/>
                 @endforeach
             </div>
-        </x-slot>
+        </flux:checkbox.group>
 
-        <x-slot name="footer">
-            <x-secondary-button wire:click="$set('managingApiTokenPermissions', false)" wire:loading.attr="disabled">
+        <div class="flex">
+            <flux:button wire:click="$set('managingApiTokenPermissions', false)"
+            >
                 {{ __('Cancel') }}
-            </x-secondary-button>
+            </flux:button>
 
-            <x-button class="ms-3" wire:click="updateApiToken" wire:loading.attr="disabled">
+            <flux:spacer/>
+
+            <flux:button variant="primary"
+                         wire:click="updateApiToken"
+                         class="ms-3"
+            >
                 {{ __('Save') }}
-            </x-button>
-        </x-slot>
-    </x-dialog-modal>
+            </flux:button>
+        </div>
+    </flux:modal>
 
     <!-- Delete Token Confirmation Modal -->
-    <x-confirmation-modal wire:model.live="confirmingApiTokenDeletion">
-        <x-slot name="title">
+    <flux:modal wire:model.self="confirmingApiTokenDeletion"
+                class="w-[50%] space-y-6"
+    >
+        <flux:heading size="lg">
             {{ __('Delete API Token') }}
-        </x-slot>
+        </flux:heading>
 
-        <x-slot name="content">
+        <flux:subheading>
             {{ __('Are you sure you would like to delete this API token?') }}
-        </x-slot>
+        </flux:subheading>
 
-        <x-slot name="footer">
-            <x-secondary-button wire:click="$toggle('confirmingApiTokenDeletion')" wire:loading.attr="disabled">
+        <div class="flex">
+            <flux:button wire:click="$toggle('confirmingApiTokenDeletion')"
+            >
                 {{ __('Cancel') }}
-            </x-secondary-button>
+            </flux:button>
 
-            <x-danger-button class="ms-3" wire:click="deleteApiToken" wire:loading.attr="disabled">
+            <flux:spacer/>
+
+            <flux:button variant="danger"
+                         wire:click="deleteApiToken"
+                         class="ms-3"
+            >
                 {{ __('Delete') }}
-            </x-danger-button>
-        </x-slot>
-    </x-confirmation-modal>
+            </flux:button>
+        </div>
+    </flux:modal>
 </div>
