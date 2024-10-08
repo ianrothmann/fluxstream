@@ -6,11 +6,11 @@
         <!-- Add Team Member -->
         <div class="flex flex-row">
             <div class="basis-4/12 p-2">
-                <h3 class="text-lg font-medium text-gray-900">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
                     {{ __('Add Team Member') }}
                 </h3>
 
-                <h2 class="mt-1 text-sm text-gray-600">
+                <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
                     {{ __('Add a new team member to your team, allowing them to collaborate with you.') }}
                 </h2>
             </div>
@@ -18,27 +18,30 @@
             <div class="basis-8/12">
                 <form>
                     <flux:card>
-                        <div class="max-w-xl text-sm text-gray-600">
+                        <div class="max-w-xl text-sm text-gray-600 dark:text-white/70">
                             {{ __('Please provide the email address of the person you would like to add to this team.') }}
                         </div>
 
                         <!-- Member Email -->
-                        <flux:fieldset class="mb-3">
-                            <flux:field class="col-span-6 sm:col-span-4"
-                            >
-                                <flux:label>{{ __('Email') }}</flux:label>
+                        <flux:fieldset class="my-3">
+                            <flux:label>{{ __('Email') }}</flux:label>
 
-                                <flux:input wire:model="addTeamMemberForm.email"/>
+                            <flux:input wire:model="addTeamMemberForm.email"/>
 
-                                <flux:error name="email"/>
-                            </flux:field>
+                            <flux:error name="email"/>
                         </flux:fieldset>
 
                         <!-- Role -->
                         @if (count($this->roles) > 0)
-                            <div class="col-span-6 lg:col-span-4">
-                                <x-label for="role" value="{{ __('Role') }}"/>
-                                <x-input-error for="role" class="mt-2"/>
+                            <div class="col-span-6 lg:col-span-4 ">
+                                <div for="role"
+                                     class="dark:text-white"
+                                >
+                                    {{ __('Role') }}
+                                </div>
+                                <flux:error name="role"
+                                            class="mt-2"
+                                />
 
                                 <div class="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
                                     @foreach ($this->roles as $index => $role)
@@ -50,7 +53,7 @@
                                                 <!-- Role Name -->
                                                 <div class="flex items-center">
                                                     <div
-                                                        class="text-sm text-gray-600 {{ $addTeamMemberForm['role'] == $role->key ? 'font-semibold' : '' }}">
+                                                        class="text-sm text-gray-600 dark:text-white {{ $addTeamMemberForm['role'] == $role->key ? 'font-semibold' : '' }}">
                                                         {{ $role->name }}
                                                     </div>
 
@@ -66,7 +69,7 @@
                                                 </div>
 
                                                 <!-- Role Description -->
-                                                <div class="mt-2 text-xs text-gray-600 text-start">
+                                                <div class="mt-2 text-xs text-gray-600 text-start dark:text-white/70">
                                                     {{ $role->description }}
                                                 </div>
                                             </div>
@@ -78,8 +81,9 @@
 
                         {{-- Action--}}
                         @if (Gate::check('update', $team))
-                            <div class="flex space-x-4 items-center justify-end bg-gray-50 -mx-6 -mb-6 mt-6 p-2"
-                                 style="border-bottom-right-radius: inherit; border-bottom-left-radius: inherit"
+                            <div
+                                class="flex space-x-4 items-center justify-end bg-gray-50 -mx-6 -mb-6 mt-6 p-2 dark:bg-zinc-800"
+                                style="border-bottom-right-radius: inherit; border-bottom-left-radius: inherit"
                             >
                                 <flux:button variant="primary"
                                              wire:click.prevent="addTeamMember"
@@ -104,11 +108,11 @@
         <!-- Team Member Invitations -->
         <div class="flex flex-row">
             <div class="basis-4/12 p-2">
-                <h3 class="text-lg font-medium text-gray-900">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
                     {{ __('Pending Team Invitations') }}
                 </h3>
 
-                <h2 class="mt-1 text-sm text-gray-600">
+                <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
                     {{ __('These people have been invited to your team and have been sent an invitation email. They may join the team by accepting the email invitation.') }}
                 </h2>
             </div>
@@ -120,7 +124,7 @@
                             class="flex items-center justify-between"
                             wire:key="token-{{ $index }}"
                         >
-                            <div class="break-all">
+                            <div class="break-all dark:text-white">
                                 {{ $invitation->email }}
                             </div>
 
@@ -151,11 +155,11 @@
         <!-- Manage Team Members -->
         <div class="flex flex-row">
             <div class="basis-4/12 p-2">
-                <h3 class="text-lg font-medium text-gray-900">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
                     {{ __('Team Members') }}
                 </h3>
 
-                <h2 class="mt-1 text-sm text-gray-600">
+                <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
                     {{ __('All of the people that are part of this team.') }}
                 </h2>
             </div>
@@ -167,7 +171,9 @@
                             <div class="flex items-center">
                                 <img class="w-8 h-8 rounded-full object-cover" src="{{ $user->profile_photo_url }}"
                                      alt="{{ $user->name }}">
-                                <div class="ms-4">{{ $user->name }}</div>
+                                <div class="ms-4 dark:text-white">
+                                    {{ $user->name }}
+                                </div>
                             </div>
 
                             <div class="flex items-center">
@@ -230,7 +236,7 @@
                         <!-- Role Name -->
                         <div class="flex items-center">
                             <div
-                                class="text-sm text-gray-600 {{ $currentRole == $role->key ? 'font-semibold' : '' }}">
+                                class="text-sm text-gray-600 dark:text-white {{ $currentRole == $role->key ? 'font-semibold' : '' }}">
                                 {{ $role->name }}
                             </div>
 
@@ -244,7 +250,7 @@
                         </div>
 
                         <!-- Role Description -->
-                        <div class="mt-2 text-xs text-gray-600">
+                        <div class="mt-2 text-xs text-gray-600 dark:text-white/70">
                             {{ $role->description }}
                         </div>
                     </div>

@@ -1,17 +1,17 @@
 <div class="flex flex-row">
     <div class="basis-4/12 p-2">
-        <h3 class="text-lg font-medium text-gray-900">
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white">
             {{ __('Delete Team') }}
         </h3>
 
-        <h2 class="mt-1 text-sm text-gray-600">
+        <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
             {{ __('Permanently delete this team.') }}
         </h2>
     </div>
 
     <div class="basis-8/12">
         <flux:card>
-            <div class="max-w-xl text-sm text-gray-600">
+            <div class="max-w-xl text-sm text-gray-600 dark:text-white/70">
                 {{ __('Once a team is deleted, all of its resources and data will be permanently deleted. Before deleting this team, please download any data or information regarding this team that you wish to retain.') }}
             </div>
 

@@ -1,4 +1,4 @@
-<flux:card>
+<flux:card class="dark:bg-zinc-900">
     <flux:heading size="lg">
         {{ __('Welcome to the Dashboard!') }}
     </flux:heading>

@@ -18,7 +18,7 @@
     @fluxStyles
 </head>
 
-<body class="min-h-screen bg-white">
+<body class="min-h-screen bg-white dark:bg-zinc-800">
 
 <livewire:components.layout.top-nav-bar/>
 

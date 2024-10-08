@@ -2,12 +2,12 @@
 
     <!-- Generate API Token -->
     <div class="flex flex-row">
-        <div class="basis-4/12">
-            <h3 class="text-lg font-medium text-gray-900">
+        <div class="basis-4/12 p-2">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
                 {{ __('Create API Token') }}
             </h3>
 
-            <h2 class="mt-1 text-sm text-gray-600">
+            <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
                 {{ __('API tokens allow third-party services to authenticate with our application on your behalf.') }}
             </h2>
         </div>
@@ -43,14 +43,15 @@
                     </flux:fieldset>
 
                     {{-- Action--}}
-                    <div class="flex space-x-4 items-center justify-end bg-gray-50 -mx-6 -mb-6 mt-6 p-2"
-                         style="border-bottom-right-radius: inherit; border-bottom-left-radius: inherit"
+                    <div
+                        class="flex space-x-4 items-center justify-end bg-gray-50 dark:bg-zinc-800 -mx-6 -mb-6 mt-6 p-2"
+                        style="border-bottom-right-radius: inherit; border-bottom-left-radius: inherit"
                     >
                         <flux:button variant="primary"
                                      wire:click.prevent="createApiToken"
                                      wire:loading.attr="disabled"
                         >
-                            {{ __('Created') }}
+                            {{ __('Creat') }}
                         </flux:button>
 
                         <x-action-message class="me-3" on="saved">
@@ -67,12 +68,12 @@
         <flux:separator class="my-5"/>
 
         <div class="flex flex-row">
-            <div class="basis-4/12">
-                <h3 class="text-lg font-medium text-gray-900">
+            <div class="basis-4/12 p-2">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
                     {{ __('Manage API Tokens') }}
                 </h3>
 
-                <h2 class="mt-1 text-sm text-gray-600">
+                <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
                     {{ __('You may delete any of your existing tokens if they are no longer needed.') }}
                 </h2>
             </div>
@@ -84,7 +85,7 @@
                             class="flex items-center justify-between {{sizeof($this->user->tokens) - 1 <= $index ? '' : 'mb-3'}}"
                             wire:key="token-{{ $index }}"
                         >
-                            <div class="break-all">
+                            <div class="break-all dark:text-white">
                                 {{ $token->name }}
                             </div>
 
