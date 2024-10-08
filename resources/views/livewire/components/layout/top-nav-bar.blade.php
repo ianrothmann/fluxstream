@@ -35,13 +35,13 @@
                     {{ __('Manage Team') }}
                 </div>
                 <!-- Team Settings -->
-                <flux:navmenu.item href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
+                <flux:navmenu.item href="/teams/{{ Auth::user()->currentTeam->id }}"
                                    wire:navigate
                 >
                     {{ __('Team Settings') }}
                 </flux:navmenu.item>
                 @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                    <flux:navmenu.item href="{{ route('teams.create') }}"
+                    <flux:navmenu.item href="/teams/create"
                                        wire:navigate
                     >
                         {{ __('Create New Team') }}

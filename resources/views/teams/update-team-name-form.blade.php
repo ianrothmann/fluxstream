@@ -1,50 +1,63 @@
-<x-form-section submit="updateTeamName">
-    <x-slot name="title">
-        {{ __('Team Name') }}
-    </x-slot>
+<div class="flex flex-row">
+    <div class="basis-4/12">
+        <h3 class="text-lg font-medium text-gray-900">
+            {{ __('Team Name') }}
+        </h3>
 
-    <x-slot name="description">
-        {{ __('The team\'s name and owner information.') }}
-    </x-slot>
+        <h2 class="mt-1 text-sm text-gray-600">
+            {{ __('The team\'s name and owner information.') }}
+        </h2>
+    </div>
 
-    <x-slot name="form">
-        <!-- Team Owner Information -->
-        <div class="col-span-6">
-            <x-label value="{{ __('Team Owner') }}" />
+    <div class="basis-8/12">
+        <form>
+            <flux:card>
+                <!-- Team Owner Information -->
+                <div class="col-span-6">
+                    <x-label value="{{ __('Team Owner') }}"/>
 
-            <div class="flex items-center mt-2">
-                <img class="w-12 h-12 rounded-full object-cover" src="{{ $team->owner->profile_photo_url }}" alt="{{ $team->owner->name }}">
+                    <div class="flex items-center mt-2">
+                        <img class="w-12 h-12 rounded-full object-cover" src="{{ $team->owner->profile_photo_url }}"
+                             alt="{{ $team->owner->name }}">
 
-                <div class="ms-4 leading-tight">
-                    <div class="text-gray-900">{{ $team->owner->name }}</div>
-                    <div class="text-gray-700 text-sm">{{ $team->owner->email }}</div>
+                        <div class="ms-4 leading-tight">
+                            <div class="text-gray-900">{{ $team->owner->name }}</div>
+                            <div class="text-gray-700 text-sm">{{ $team->owner->email }}</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Team Name -->
-        <div class="col-span-6 sm:col-span-4">
-            <x-label for="name" value="{{ __('Team Name') }}" />
+                <!-- Team Name -->
+                <flux:fieldset>
+                    <flux:field class="col-span-6 sm:col-span-4"
+                    >
+                        <flux:label>{{ __('Team Name') }}</flux:label>
 
-            <x-input id="name"
-                        type="text"
-                        class="mt-1 block w-full"
-                        wire:model="state.name"
-                        :disabled="! Gate::check('update', $team)" />
+                        <flux:input wire:model="state.name"
+                                    :disabled="!Gate::check('update', $team)"
+                        />
 
-            <x-input-error for="name" class="mt-2" />
-        </div>
-    </x-slot>
+                        <flux:error name="name"/>
+                    </flux:field>
+                </flux:fieldset>
 
-    @if (Gate::check('update', $team))
-        <x-slot name="actions">
-            <x-action-message class="me-3" on="saved">
-                {{ __('Saved.') }}
-            </x-action-message>
+                {{-- Action--}}
+                @if (Gate::check('update', $team))
+                    <div class="flex space-x-4 items-center justify-end bg-gray-50 -mx-6 -mb-6 mt-6 p-2"
+                         style="border-bottom-right-radius: inherit; border-bottom-left-radius: inherit"
+                    >
+                        <flux:button variant="primary"
+                                     wire:click.prevent="updateTeamName"
+                        >
+                            {{ __('Save') }}
+                        </flux:button>
 
-            <x-button>
-                {{ __('Save') }}
-            </x-button>
-        </x-slot>
-    @endif
-</x-form-section>
+                        <x-action-message class="me-3" on="saved">
+                            {{ __('Saved.') }}
+                        </x-action-message>
+                    </div>
+                @endif
+            </flux:card>
+        </form>
+    </div>
+</div>

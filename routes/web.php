@@ -11,7 +11,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/', Dashboard::class)->name('dashboard');
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
 
     // Jetstream's default logout route uses a hidden form with CSRF token, submitted via JS as a POST request.

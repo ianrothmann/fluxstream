@@ -1,36 +1,50 @@
-<x-form-section submit="createTeam">
-    <x-slot name="title">
-        {{ __('Team Details') }}
-    </x-slot>
+<div class="flex flex-row">
+    <div class="basis-4/12 p-2">
+        <h3 class="text-lg font-medium text-gray-900">
+            {{ __('Team Details') }}
+        </h3>
 
-    <x-slot name="description">
-        {{ __('Create a new team to collaborate with others on projects.') }}
-    </x-slot>
+        <h2 class="mt-1 text-sm text-gray-600">
+            {{ __('Create a new team to collaborate with others on projects.') }}
+        </h2>
+    </div>
 
-    <x-slot name="form">
-        <div class="col-span-6">
-            <x-label value="{{ __('Team Owner') }}" />
+    <div class="basis-8/12">
+        <flux:card>
+            <div class="col-span-6">
+                <x-label value="{{ __('Team Owner') }}"/>
 
-            <div class="flex items-center mt-2">
-                <img class="w-12 h-12 rounded-full object-cover" src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}">
+                <div class="flex items-center mt-2">
+                    <img class="w-12 h-12 rounded-full object-cover" src="{{ $this->user->profile_photo_url }}"
+                         alt="{{ $this->user->name }}">
 
-                <div class="ms-4 leading-tight">
-                    <div class="text-gray-900">{{ $this->user->name }}</div>
-                    <div class="text-gray-700 text-sm">{{ $this->user->email }}</div>
+                    <div class="ms-4 leading-tight">
+                        <div class="text-gray-900">{{ $this->user->name }}</div>
+                        <div class="text-gray-700 text-sm">{{ $this->user->email }}</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-span-6 sm:col-span-4">
-            <x-label for="name" value="{{ __('Team Name') }}" />
-            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" autofocus />
-            <x-input-error for="name" class="mt-2" />
-        </div>
-    </x-slot>
+            <form class="mt-2">
+                <flux:fieldset class="mb-3">
+                    <flux:field class="col-span-6 sm:col-span-4"
+                    >
+                        <flux:label>{{ __('Team Name') }}</flux:label>
 
-    <x-slot name="actions">
-        <x-button>
-            {{ __('Create') }}
-        </x-button>
-    </x-slot>
-</x-form-section>
+                        <flux:input wire:model="state.name"/>
+
+                        <flux:error name="name"/>
+                    </flux:field>
+                </flux:fieldset>
+
+                <div class="flex justify-end">
+                    <flux:button variant="primary"
+                                 wire:click.prevent="createTeam"
+                    >
+                        {{ __('Create') }}
+                    </flux:button>
+                </div>
+            </form>
+        </flux:card>
+    </div>
+</div>
