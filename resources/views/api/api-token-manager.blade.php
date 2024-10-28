@@ -3,13 +3,13 @@
     <!-- Generate API Token -->
     <div class="flex flex-row">
         <div class="basis-4/12 p-2">
-            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+            <flux:heading>
                 {{ __('Create API Token') }}
-            </h3>
+            </flux:heading>
 
-            <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
+            <flux:subheading>
                 {{ __('API tokens allow third-party services to authenticate with our application on your behalf.') }}
-            </h2>
+            </flux:subheading>
         </div>
 
         <div class="basis-8/12">
@@ -69,13 +69,13 @@
 
         <div class="flex flex-row">
             <div class="basis-4/12 p-2">
-                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                <flux:heading>
                     {{ __('Manage API Tokens') }}
-                </h3>
+                </flux:heading>
 
-                <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
+                <flux:subheading>
                     {{ __('You may delete any of your existing tokens if they are no longer needed.') }}
-                </h2>
+                </flux:subheading>
             </div>
 
             <div class="basis-8/12">
@@ -121,7 +121,7 @@
     <flux:modal wire:model.self="displayingToken"
                 class="w-[50%] space-y-6"
     >
-        <flux:heading size="lg">
+        <flux:heading>
             {{ __('API Token') }}
         </flux:heading>
 
@@ -145,7 +145,7 @@
     <flux:modal wire:model.self="managingApiTokenPermissions"
                 class="w-[50%] space-y-6"
     >
-        <flux:heading size="lg">
+        <flux:heading>
             {{ __('API Token Permissions') }}
         </flux:heading>
 
@@ -181,7 +181,7 @@
     <flux:modal wire:model.self="confirmingApiTokenDeletion"
                 class="w-[50%] space-y-6"
     >
-        <flux:heading size="lg">
+        <flux:heading>
             {{ __('Delete API Token') }}
         </flux:heading>
 

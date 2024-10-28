@@ -11,6 +11,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    
+    Route::get('/', function () {
+        return redirect()->route('dashboard');
+    });
+
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
 

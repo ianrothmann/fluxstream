@@ -2,10 +2,10 @@
     <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left"/>
 
     <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png"
-                name="Acme Inc."
+                name="{{config('app.name')}}"
                 class="max-lg:hidden dark:hidden"/>
     <flux:brand href="#" logo="https://fluxui.dev/img/demo/dark-mode-logo.png"
-                name="Acme Inc."
+                name="{{config('app.name')}}"
                 class="max-lg:!hidden hidden dark:flex"/>
 
     <flux:navbar class="-mb-px max-lg:hidden">

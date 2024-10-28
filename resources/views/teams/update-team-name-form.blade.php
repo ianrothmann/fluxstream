@@ -1,12 +1,12 @@
 <div class="flex flex-row">
     <div class="basis-4/12">
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+        <flux:heading>
             {{ __('Team Name') }}
-        </h3>
+        </flux:heading>
 
-        <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
+        <flux:subheading>
             {{ __('The team\'s name and owner information.') }}
-        </h2>
+        </flux:subheading>
     </div>
 
     <div class="basis-8/12">

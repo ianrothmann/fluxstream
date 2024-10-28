@@ -6,13 +6,13 @@
         <!-- Add Team Member -->
         <div class="flex flex-row">
             <div class="basis-4/12 p-2">
-                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                <flux:heading>
                     {{ __('Add Team Member') }}
-                </h3>
+                </flux:heading>
 
-                <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
+                <flux:subheading>
                     {{ __('Add a new team member to your team, allowing them to collaborate with you.') }}
-                </h2>
+                </flux:subheading>
             </div>
 
             <div class="basis-8/12">
@@ -108,13 +108,13 @@
         <!-- Team Member Invitations -->
         <div class="flex flex-row">
             <div class="basis-4/12 p-2">
-                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                <flux:heading>
                     {{ __('Pending Team Invitations') }}
-                </h3>
+                </flux:heading>
 
-                <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
+                <flux:subheading>
                     {{ __('These people have been invited to your team and have been sent an invitation email. They may join the team by accepting the email invitation.') }}
-                </h2>
+                </flux:subheading>
             </div>
 
             <div class="basis-8/12">
@@ -155,13 +155,13 @@
         <!-- Manage Team Members -->
         <div class="flex flex-row">
             <div class="basis-4/12 p-2">
-                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                <flux:heading>
                     {{ __('Team Members') }}
-                </h3>
+                </flux:heading>
 
-                <h2 class="mt-1 text-sm text-gray-600 dark:text-white/70">
+                <flux:subheading>
                     {{ __('All of the people that are part of this team.') }}
-                </h2>
+                </flux:subheading>
             </div>
 
             <div class="basis-8/12">
@@ -223,7 +223,7 @@
     <flux:modal wire:model.self="currentlyManagingRole"
                 class="w-[50%] space-y-6"
     >
-        <flux:heading size="lg">
+        <flux:heading>
             {{ __('Manage Role') }}
         </flux:heading>
 
@@ -279,7 +279,7 @@
     <flux:modal wire:model.self="confirmingLeavingTeam"
                 class="w-[50%] space-y-6"
     >
-        <flux:heading size="lg">
+        <flux:heading>
             {{ __('Leave Team') }}
         </flux:heading>
 
@@ -308,7 +308,7 @@
     <flux:modal wire:model.self="confirmingTeamMemberRemoval"
                 class="w-[50%] space-y-6"
     >
-        <flux:heading size="lg">
+        <flux:heading>
             {{ __('Remove Team Member') }}
         </flux:heading>
 
